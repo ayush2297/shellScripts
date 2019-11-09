@@ -1,5 +1,6 @@
 #! /bin/bash -x
 
+number=10
 isPresent=1
 hourlyWage=30
 empCheck=$((RANDOM%2))
