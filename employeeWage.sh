@@ -6,9 +6,9 @@ hourlyWage=30
 empCheck=$((RANDOM%2))
 if [ $empCheck == $isFullTime ] 
 then 
-	hours=8
+	hoursWorked=8
 elseif [ $empCheck == $isPartTime ]
-	hours=4
+	hoursWorked=4
 fi
 wage=$(($hourlyWage*hours))
 
