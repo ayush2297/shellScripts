@@ -6,7 +6,7 @@ hourlyWage=30
 empCheck=$((RANDOM%2))
 if [ $empCheck == $isPresent ] 
 then 
-	hours=8
+	hours=9
 	wage=$(($hourlyWage*hours))
 	echo emp present
 else
