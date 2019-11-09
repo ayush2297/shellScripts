@@ -3,11 +3,11 @@
 isFullTime=1
 isPartTime=2
 hourlyWage=30
-empCheck=$((RANDOM%2))
-if [ $empCheck == $isFullTime ] 
+emp1Check=$((RANDOM%2))
+if [ $emp1Check == $isFullTime ] 
 then 
 	hoursWorked=8
-elseif [ $empCheck == $isPartTime ]
+elseif [ $emp1Check == $isPartTime ]
 	hours=4
 fi
 wage=$(($hourlyWage*hours))
