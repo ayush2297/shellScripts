@@ -1,0 +1,163 @@
+Map.java::::::
+
+LinkedList<T> mapList = new LinkedList<T>(true);
+	int keyCount = 0;
+	int valCount = 0;
+	
+	public <T>Map(int sizeOfMap){
+		int som = sizeOfMap;
+		while(som != 0 ) {
+			keyCount++;
+			mapList.addAtEnd(null);
+			som--;
+		}
+	}
+	
+	public <T> void add(T value) {
+		int key = generateHash(value);
+		addElement(key, value);
+		valCount++;
+	}
+	
+	public <T> int generateHash(T inputValue) {
+		int modLocation = (int)inputValue%keyCount;
+		return modLocation;
+	}
+	
+	public <T>void addElement(int modLocation, T inputValue){
+		Node tempNode = mapList.returnNode(modLocation);
+		if(tempNode.data == null) {
+			LinkedList<T> innerL = new LinkedList<T>();
+			innerL.addOrdered((Comparable)inputValue);
+			tempNode.data = innerL;
+			return;
+		}
+		LinkedList innerList = (LinkedList) tempNode.data;
+		innerList.addOrdered((Comparable<T>)inputValue);
+	}
+	
+	public <T> void showMap() {
+		if(mapList.listIsEmpty()) {
+			System.out.println("no such map!");
+			return;
+		}
+		int key = 0 ;
+		Node tempNodeForKey = mapList.head;
+		while(tempNodeForKey != null) {
+			System.out.println("\nfor key: "+(key++));
+			LinkedList tempListForVal = (LinkedList) tempNodeForKey.data;
+			Node tempNodeForVal = tempListForVal.head;
+			int c = 0;
+			while(tempNodeForVal != null) {
+				System.out.println("val"+(++c)+" "+tempNodeForVal.data);
+				tempNodeForVal = tempNodeForVal.nextNode;
+			}
+			tempNodeForKey = tempNodeForKey.nextNode;
+		}
+	}
+	
+	public <T> boolean searchMap(T elementToBeSearched) {
+		int locationToSearch = generateHash(elementToBeSearched);
+		Node tempNode = mapList.returnNode(locationToSearch);
+		if(tempNode.data == null) {
+			System.out.println("does not contain a list");
+			add(elementToBeSearched);
+			return false;
+		}
+		LinkedList innerList = (LinkedList) tempNode.data;
+		System.out.println("searching at key: " +locationToSearch);
+		if(innerList.popIfFound(elementToBeSearched)) {
+			valCount--;
+			return true;
+		}
+		return false;
+	}
+	
+	public <T> void totalElements() {
+		System.out.println("keys: "+keyCount);
+		System.out.println("values: "+valCount);
+	}
+
+	public void addAll(String[] stringArr) {
+		for(int i = 0 ; i < stringArr.length ; i++) {
+			add(Integer.parseInt(stringArr[i]));
+		}
+	}
+
+
+
+
+
+
+Hashfn.java:::::::::
+
+
+
+Map<Integer> map = new Map<Integer>(3);
+		Scanner scanner = UtilityDataStructures.acceptFileUsingScanner
+				("/home/user/numbersForHasg.txt");
+		scanner.useDelimiter("\\Z");
+		String fileContents = scanner.next();
+		String [] stringArr = fileContents.split(" ");
+		map.addAll(stringArr);
+		map.totalElements();
+		map.showMap();
+		System.out.println("element to search: ");
+		int searchThisint = UtilityAlgorithms.readInteger();
+		if(map.searchMap(searchThisint)) {
+			System.out.println("found!");
+		}else {
+			System.out.println("element wasnt found! updated the list");
+		}
+		map.showMap();
+
+
+
+
+
+LnkedList.java:::::::
+	public <T> void deleteElement(T valueToDelete) {
+		if(head.data == valueToDelete) {
+			head = head.nextNode;
+			return;
+		}
+		Node tempNode = head;
+		while((tempNode.nextNode).data != valueToDelete 
+				&& tempNode.nextNode != null) {
+			tempNode = tempNode.nextNode;
+		}
+		tempNode.nextNode = (tempNode.nextNode).nextNode;
+	}
+	
+	public <T> boolean popIfFound(T valueToSearch) {
+		if(searchElement(valueToSearch)) {
+			deleteElement(valueToSearch);
+			return true;
+		} else {
+			System.out.println("no such element present.. "
+					+ "added the element to the list");
+			return false;
+		}
+	}
+	
+	public <T> boolean searchElement(T valueToSearch) {
+		if ( listIsEmpty() ) {
+			addAtEnd(valueToSearch);
+			return false;
+		}
+		Node traversalNode = head;
+		int position = 1;
+		while( traversalNode != null ) {
+			if( (traversalNode.data).equals(valueToSearch) ) {
+				System.out.println("found at " + position+ " and popped out!" );
+				return true;
+			}
+			traversalNode = traversalNode.nextNode;
+			position++;
+//			System.out.println("not present at " + position );
+		}
+		addOrdered((Comparable)valueToSearch);
+		return false;
+	}
+	
+
