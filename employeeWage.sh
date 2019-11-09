@@ -8,7 +8,7 @@ if [ $empCheck == $isFullTime ]
 then 
 	hoursWorked=8
 elseif [ $empCheck == $isPartTime ]
-	hoursWorked=4
+then
+	hours=4
 fi
 wage=$(($hourlyWage*hours))
-
