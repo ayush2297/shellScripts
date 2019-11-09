@@ -1,15 +1,13 @@
 #! /bin/bash -x
 
-number=10
-isPresent=1
+isFullTime=1
+isPartTime=2
 hourlyWage=30
 empCheck=$((RANDOM%2))
-if [ $empCheck == $isPresent ] 
+if [ $empCheck == $isFullTime ] 
 then 
-	hours=9
-	wage=$(($hourlyWage*hours))
-	echo emp present
-else
-	echo emp absent
+	hoursWorked=8
+elseif [ $empCheck == $isPartTime ]
+	hours=4
 fi
-	
+wage=$(($hourlyWage*hours))
